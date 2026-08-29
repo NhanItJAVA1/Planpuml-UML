@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as user
+
+rectangle "Transaction & Reporting Module" {
+  usecase "Xem Danh sách Giao dịch" as UC_TxList
+  usecase "Lọc Giao dịch theo Ví" as UC_FilterWallet
+  usecase "Chuyển đổi Chu kỳ Thời gian" as UC_TimeTab
+  usecase "Xem Báo cáo Giai đoạn" as UC_Report
+  usecase "Phân tích Thu nhập ròng" as UC_NetIncome
+  usecase "Xem Biểu đồ Tròn (Donut) Hạng mục" as UC_Donut
+  usecase "Xem Quản lý Nợ / Cho vay" as UC_Debt
+}
+
+user --> UC_TxList
+user --> UC_FilterWallet
+user --> UC_TimeTab
+user --> UC_Report
+
+UC_Report <.. UC_NetIncome : <<include>>
+UC_Report <.. UC_Donut : <<include>>
+UC_Report <.. UC_Debt : <<include>>
+@enduml
