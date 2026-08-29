@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype ortho
+scale 900 width
+skinparam nodesep 30
+skinparam ranksep 80
+
+actor "Người dùng" as User
+actor "Dịch vụ Email" as EmailService <<External>>
+
+rectangle "Chức năng: Thay đổi mật khẩu" {
+    usecase "Thay đổi mật khẩu" as UC_ChangePassword
+    usecase "Xác thực mật khẩu cũ" as UC_VerifyOldPassword
+    usecase "Kiểm tra mật khẩu mới" as UC_ValidateNewPassword
+    usecase "Quên mật khẩu" as UC_ForgotPassword
+    usecase "Gửi email đặt lại mật khẩu" as UC_SendEmail
+}
+
+User --> UC_ChangePassword
+
+UC_ChangePassword .> UC_VerifyOldPassword : <<include>>
+UC_ChangePassword .> UC_ValidateNewPassword : <<include>>
+UC_ForgotPassword .> UC_ChangePassword : <<extend>>
+UC_ForgotPassword .> UC_SendEmail : <<include>>
+
+UC_SendEmail ..> EmailService : <<interact>>
+
+@enduml

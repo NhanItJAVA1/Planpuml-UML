@@ -1,0 +1,42 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype ortho
+scale 950 width
+skinparam nodesep 30
+skinparam ranksep 80
+
+actor "Người dùng" as User
+actor "Dịch vụ Email" as EmailService <<External>>
+
+rectangle "Chức năng: Xóa tài khoản" {
+    usecase "Xóa tài khoản" as UC_DeleteAccount
+    usecase "Xem cảnh báo điều khoản" as UC_ViewWarning
+    usecase "Khảo sát lý do rời bỏ" as UC_SurveyReason
+    usecase "Xác thực mật khẩu" as UC_VerifyPassword
+    usecase "Quên mật khẩu" as UC_ForgotPassword
+    usecase "Huỷ thao tác" as UC_CancelAction
+    usecase "Gửi email đặt lại mật khẩu" as UC_SendEmail
+}
+
+User --> UC_DeleteAccount
+
+UC_DeleteAccount .> UC_ViewWarning : <<include>>
+UC_DeleteAccount .> UC_SurveyReason : <<include>>
+UC_DeleteAccount .> UC_VerifyPassword : <<include>>
+UC_ForgotPassword .> UC_DeleteAccount : <<extend>>
+UC_CancelAction .> UC_DeleteAccount : <<extend>>
+UC_ForgotPassword .> UC_SendEmail : <<include>>
+
+UC_SendEmail ..> EmailService : <<interact>>
+
+note right of UC_SurveyReason
+Lý do ngừng dùng:
+- Lỗi ứng dụng
+- Quá nhiều QC / Quá đắt
+- Chuyển sang app khác
+- Vấn đề bảo mật
+end note
+
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype ortho
+scale 900 width
+skinparam nodesep 30
+skinparam ranksep 80
+
+actor "Người dùng" as User
+actor "Dịch vụ Email" as EmailService <<External>>
+
+rectangle "Chức năng: Đặt lại tài khoản" {
+    usecase "Đặt lại tài khoản" as UC_ResetAccount
+    usecase "Xem & Đồng ý cảnh báo điều khoản" as UC_ViewWarning
+    usecase "Xác thực mật khẩu" as UC_VerifyPassword
+    usecase "Quên mật khẩu" as UC_ForgotPassword
+    usecase "Huỷ thao tác" as UC_CancelAction
+    usecase "Gửi email đặt lại mật khẩu" as UC_SendEmail
+}
+
+User --> UC_ResetAccount
+
+UC_ResetAccount .> UC_ViewWarning : <<include>>
+UC_ResetAccount .> UC_VerifyPassword : <<include>>
+UC_ForgotPassword .> UC_ResetAccount : <<extend>>
+UC_CancelAction .> UC_ResetAccount : <<extend>>
+UC_ForgotPassword .> UC_SendEmail : <<include>>
+
+UC_SendEmail ..> EmailService : <<interact>>
+
+note right of UC_ViewWarning
+Cảnh báo:
+- Xóa toàn bộ dữ liệu
+- Không thể khôi phục
+- Đăng xuất thiết bị khác
+- Giữ lại gói/vật phẩm đã mua
+end note
+
+@enduml

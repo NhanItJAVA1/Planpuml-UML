@@ -1,0 +1,58 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as User
+
+actor "Payment Gateway" as PaymentGateway <<External>>
+actor "Hệ thống Ngân hàng" as BankSystem <<External>>
+actor "Google Sheets API" as GoogleAPI <<External>>
+
+rectangle "Màn hình Tài khoản (Money Lover)" {
+    ' Nhóm Quản lý tài khoản & Gói cước
+    usecase "Quản lý tài khoản" as UC1
+
+    ' Nhóm Quản lý tài chính & Ví
+    usecase "Quản lý Ví của tôi" as UC2
+    usecase "Quản lý Nhóm" as UC3
+    usecase "Liên kết ngân hàng" as UC4
+    usecase "Quản lý Sổ nợ" as UC5
+
+    ' Nhóm Tiện ích & Theo dõi nâng cao
+    usecase "Quản lý Sự kiện" as UC6
+    usecase "Quản lý Giao dịch định kỳ" as UC7
+    usecase "Quản lý Hoá đơn" as UC8
+    usecase "Sử dụng Công cụ tài chính" as UC9
+    usecase "Quản lý Chế độ du lịch" as UC10
+    usecase "Xuất dữ liệu sang Google Sheets" as UC11
+
+    ' Nhóm Khám phá, Hỗ trợ & Hệ thống
+    usecase "Truy cập Cửa hàng" as UC12
+    usecase "Yêu cầu Hỗ trợ (FAQ/Help)" as UC13
+    usecase "Cài đặt hệ thống" as UC14
+    usecase "Xem Giới thiệu ứng dụng" as UC15
+}
+
+' Kết nối Actor chính với Use Cases
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+User --> UC14
+User --> UC15
+
+' Tương tác với Hệ thống bên ngoài (External Systems)
+UC2 ..> PaymentGateway : <<interact>>
+UC4 ..> BankSystem : <<interact>>
+UC11 ..> GoogleAPI : <<interact>>
+
+@enduml

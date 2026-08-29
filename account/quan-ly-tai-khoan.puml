@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+
+scale 1100 width
+skinparam ranksep 100
+skinparam nodesep 35
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype ortho
+
+actor "Người dùng" as User
+actor "Cổng thanh toán" as PaymentGateway <<External>>
+
+rectangle "Phân hệ Quản lý Tài khoản" {
+
+    rectangle "Thông tin & Gói dịch vụ" {
+        usecase "Xem thông tin tài khoản" as UC_ViewAccount
+        usecase "Mua phiên bản Cao cấp" as UC_BuyPremium
+        usecase "Quản lý thiết bị đăng nhập" as UC_ManageDevices
+    }
+
+    rectangle "Bảo mật & Thao tác tài khoản" {
+        usecase "Thay đổi mật khẩu" as UC_ChangePassword
+        usecase "Đăng xuất" as UC_Logout
+        usecase "Xác nhận đăng xuất" as UC_ConfirmLogout
+        usecase "Đặt lại tài khoản" as UC_ResetAccount
+        usecase "Xóa tài khoản" as UC_DeleteAccount
+    }
+}
+
+' Tương tác Actor chính
+User --> UC_ViewAccount
+User --> UC_BuyPremium
+User --> UC_ManageDevices
+User --> UC_ChangePassword
+User --> UC_Logout
+User --> UC_ResetAccount
+User --> UC_DeleteAccount
+
+' Quan hệ phụ
+UC_Logout .> UC_ConfirmLogout : <<extend>>
+UC_BuyPremium ..> PaymentGateway : <<interact>>
+
+note right of UC_ChangePassword
+Xem chi tiết ở sơ đồ
+luồng Thay đổi mật khẩu
+end note
+
+note right of UC_ResetAccount
+Xem chi tiết ở sơ đồ
+luồng Đặt lại tài khoản
+end note
+
+note right of UC_DeleteAccount
+Xem chi tiết ở sơ đồ
+luồng Xóa tài khoản
+end note
+
+@enduml
