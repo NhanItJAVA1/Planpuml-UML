@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as user
+
+rectangle "Transaction Creation Module" {
+  usecase "Tạo Giao dịch mới" as UC_Create
+  usecase "Chọn loại Giao dịch (Thu/Chi/Nợ)" as UC_Type
+  usecase "Chọn Ví & Nhóm Hạng mục" as UC_WalletCat
+  usecase "Nhập Số tiền & Ghi chú" as UC_Amount
+  usecase "Đính kèm Ảnh Hóa đơn" as UC_Image
+  usecase "Gắn Vị trí / Sự kiện / Người tham gia" as UC_Meta
+  usecase "Đặt Nhắc nhở" as UC_Remind
+  usecase "Tùy chọn Loại trừ Báo cáo" as UC_Exclude
+}
+
+user --> UC_Create
+
+UC_Create <.. UC_Type : <<include>>
+UC_Create <.. UC_WalletCat : <<include>>
+UC_Create <.. UC_Amount : <<include>>
+
+UC_Create <.. UC_Image : <<extend>>
+UC_Create <.. UC_Meta : <<extend>>
+UC_Create <.. UC_Remind : <<extend>>
+UC_Create <.. UC_Exclude : <<extend>>
+@enduml

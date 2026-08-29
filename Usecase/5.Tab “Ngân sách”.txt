@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as user
+
+rectangle "Budget Management Module" {
+  usecase "Xem Danh sách Ngân sách" as UC_List
+  usecase "Tạo Ngân sách mới" as UC_Create
+  usecase "Cài đặt Lặp lại theo Kỳ" as UC_Repeat
+  usecase "Xem Chi tiết & Biểu đồ Tiến độ" as UC_Detail
+  usecase "Xem Dự báo & Gợi ý Chi tiêu hàng ngày" as UC_Forecast
+  usecase "Sửa / Xóa Ngân sách" as UC_Manage
+}
+
+user --> UC_List
+user --> UC_Create
+user --> UC_Detail
+
+UC_Create <.. UC_Repeat : <<extend>>
+UC_Detail <.. UC_Forecast : <<include>>
+UC_Detail <.. UC_Manage : <<extend>>
+@enduml
