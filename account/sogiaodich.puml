@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as User
+
+rectangle "Quản lý giao dịch" {
+    usecase "Xem giao dịch" as UC_View
+    usecase "Thêm giao dịch" as UC_Add
+    usecase "Cập nhật giao dịch" as UC_Edit
+    usecase "Xóa giao dịch" as UC_Delete
+    usecase "Tìm kiếm / lọc giao dịch" as UC_Search
+    usecase "Quản lý khoản vay / nợ" as UC_Loan
+}
+
+User --> UC_View
+User --> UC_Add
+User --> UC_Edit
+User --> UC_Delete
+User --> UC_Search
+User --> UC_Loan
+
+@enduml

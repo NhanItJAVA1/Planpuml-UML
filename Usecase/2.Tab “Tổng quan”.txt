@@ -1,26 +1,25 @@
 @startuml
 left to right direction
-skinparam packageStyle rectangle
 
-actor "Người dùng" as user
+actor "Người dùng" as User
 
-rectangle "Dashboard & Analytics Module" {
-  usecase "Xem & Ẩn/Hiện Tổng số dư" as UC_Balance
-  usecase "Xem phân loại Ví (Tín dụng/Tiết kiệm/Tiền mặt)" as UC_Wallets
-  usecase "Xem Biểu đồ Xu hướng (Line Chart)" as UC_Trend
-  usecase "So sánh Chi tiêu tháng trước/tháng này (Bar Chart)" as UC_Compare
-  usecase "Lọc Top Chi tiêu theo Hạng mục (%)" as UC_TopCat
-  usecase "Xem Lịch sử Giao dịch gần đây" as UC_Recent
-  usecase "Bật/Tắt Chế độ Dữ liệu mẫu (Demo Mode)" as UC_Demo
-  usecase "Tạo Giao dịch nhanh" as UC_Add
+rectangle "Báo cáo & Thống kê" {
+
+    usecase "Xem báo cáo &\nthống kê" as Main
+
+    usecase "Xem tổng quan\ntài chính" as Overview
+    usecase "Xem tổng số dư" as Balance
+    usecase "Xem giao dịch\ngần đây" as Recent
+    usecase "Xem phân bổ\nchi tiêu" as Distribution
+    usecase "Xem biểu đồ\ntài chính" as Chart
 }
 
-user --> UC_Balance
-user --> UC_Wallets
-user --> UC_Trend
-user --> UC_Compare
-user --> UC_TopCat
-user --> UC_Recent
-user --> UC_Demo
-user --> UC_Add
+User --> Main
+
+Main ..> Overview : <<include>>
+Main ..> Balance : <<include>>
+Main ..> Recent : <<include>>
+Main ..> Distribution : <<include>>
+Main ..> Chart : <<include>>
+
 @enduml

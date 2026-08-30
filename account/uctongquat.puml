@@ -1,0 +1,104 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle outline
+
+actor "Người dùng" as User
+actor "Google OAuth / Sheets" as Google << System >>
+actor "Dịch vụ Email" as Email << System >>
+
+rectangle "HỆ THỐNG QUẢN LÝ TÀI CHÍNH CÁ NHÂN" {
+
+  package "Phân hệ Xác thực & Hướng dẫn" {
+    usecase "Chọn ngôn ngữ" as UC_Auth1
+    usecase "Đăng ký / Đăng nhập" as UC_Auth2
+    usecase "Quên / Khôi phục mật khẩu" as UC_Auth3
+  }
+
+  package "Phân hệ Quản lý Giao dịch" {
+    usecase "Tạo giao dịch (Thu/Chi/Nợ)" as UC_Trans1
+    usecase "Xem & Lọc lịch sử giao dịch" as UC_Trans2
+    usecase "Đính kèm thông tin nâng cao\n(Hóa đơn/GPS/Nhắc nhở)" as UC_Trans3
+  }
+
+  package "Phân hệ Báo cáo & Thống kê" {
+    usecase "Xem tổng quan số dư & xu hướng" as UC_Rep1
+    usecase "Xem phân bổ chi tiêu (Biểu đồ)" as UC_Rep2
+    usecase "Phân tích Thu nhập ròng & Nợ/Cho vay" as UC_Rep3
+  }
+
+  package "Phân hệ Quản lý Ngân sách" {
+    usecase "Lập & Thiết lập lặp lại ngân sách" as UC_Bud1
+    usecase "Theo dõi tiến độ & Cảnh báo" as UC_Bud2
+    usecase "Xem dự báo & Gợi ý chi tiêu" as UC_Bud3
+  }
+
+  package "Phân hệ Quản lý Ví" {
+    usecase "Tạo ví mới\n(Thường, Tiết kiệm, Tín dụng)" as UC_Wal1
+    usecase "Chuyển tiền nội bộ giữa các ví" as UC_Wal2
+    usecase "Cấu hình & Tùy chỉnh ví" as UC_Wal3
+  }
+
+  package "Phân hệ Quản lý Danh mục" {
+    usecase "Quản lý danh mục (Thu/Chi/Nợ)" as UC_Cat1
+    usecase "Tạo danh mục phân cấp (Mẹ - Con)" as UC_Cat2
+  }
+
+  package "Phân hệ Tài khoản & Tiện ích" {
+    usecase "Quản lý thông tin & Thiết bị" as UC_Acc1
+    usecase "Đổi mật khẩu / Đặt lại / Xóa tài khoản" as UC_Acc2
+    usecase "Xuất dữ liệu sang Google Sheets" as UC_Acc3
+  }
+
+  package "Phân hệ Trợ lý AI" {
+    usecase "Nhập liệu qua Text / Voice" as UC_AI1
+    usecase "Truy vấn dữ liệu bằng câu hỏi" as UC_AI2
+    usecase "Tư vấn & Cảnh báo tài chính" as UC_AI3
+  }
+
+}
+
+' Relationships: User to Use Cases
+User --> UC_Auth1
+User --> UC_Auth2
+User --> UC_Auth3
+
+User --> UC_Trans1
+User --> UC_Trans2
+
+User --> UC_Rep1
+User --> UC_Rep2
+User --> UC_Rep3
+
+User --> UC_Bud1
+User --> UC_Bud2
+
+User --> UC_Wal1
+User --> UC_Wal2
+User --> UC_Wal3
+
+User --> UC_Cat1
+
+User --> UC_Acc1
+User --> UC_Acc2
+User --> UC_Acc3
+
+User --> UC_AI1
+User --> UC_AI2
+
+' Includes & Extends
+UC_Trans1 .> UC_Trans3 : <<include>>
+UC_Bud1 .> UC_Bud2 : <<include>>
+UC_Bud2 .> UC_Bud3 : <<include>>
+UC_Cat1 .> UC_Cat2 : <<include>>
+
+UC_AI1 .> UC_Trans1 : <<extend>>
+UC_AI3 .> UC_Bud2 : <<extend>>
+
+' Relationships: External Systems
+UC_Auth2 -- Google
+UC_Auth3 -- Email
+UC_Acc2 -- Email
+UC_Acc3 -- Google
+
+@enduml

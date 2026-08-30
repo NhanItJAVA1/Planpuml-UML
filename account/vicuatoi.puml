@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as user
+
+rectangle "Wallet Management Module" {
+  usecase "Quản lý Danh sách Ví" as UC_List
+  usecase "Tạo Ví Mới" as UC_Create
+  usecase "Tạo Ví Thường" as UC_Basic
+  usecase "Tạo Ví Tiết kiệm Mục tiêu" as UC_Savings
+  usecase "Chuyển tiền giữa các Ví" as UC_Transfer
+  usecase "Thiết lập Tùy chọn Ví" as UC_Config
+  usecase "Loại trừ khỏi Tổng số dư" as UC_Exclude
+  usecase "Bật/Tắt Thông báo" as UC_Notify
+  usecase "Lưu trữ / Xóa Ví" as UC_ArchiveDelete
+}
+
+user --> UC_List
+user --> UC_Create
+user --> UC_Transfer
+user --> UC_Config
+
+' Mở rộng các loại ví khi Tạo mới
+UC_Create <|-- UC_Basic
+UC_Create <|-- UC_Savings
+
+' Các tính năng chi tiết thuộc Thiết lập tùy chọn ví
+UC_Config <.. UC_Exclude : <<extend>>
+UC_Config <.. UC_Notify : <<extend>>
+UC_Config <.. UC_ArchiveDelete : <<extend>>
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as user
+
+rectangle "AI Chatbot Assistant Module" {
+  usecase "Tương tác với AI Chatbot" as UC_Chat
+  usecase "Tạo Giao dịch qua Chat (Text/Voice/Image)" as UC_ChatCreateTx
+  usecase "Truy vấn Báo cáo & Lịch sử Chi tiêu" as UC_ChatQuery
+  usecase "Nhận Lời khuyên & Cảnh báo Tài chính" as UC_ChatAdvice
+}
+
+user --> UC_Chat
+
+UC_Chat <.. UC_ChatCreateTx : <<extend>>
+UC_Chat <.. UC_ChatQuery : <<extend>>
+UC_Chat <.. UC_ChatAdvice : <<extend>>
+@enduml

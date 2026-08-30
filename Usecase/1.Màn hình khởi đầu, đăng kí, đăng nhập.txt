@@ -4,7 +4,6 @@ skinparam packageStyle rectangle
 
 actor "Người dùng" as user
 actor "Google OAuth" as google
-actor "Apple OAuth" as apple
 
 rectangle "Authentication & Onboarding Module" {
   usecase "Chọn ngôn ngữ" as UC_Lang
@@ -14,7 +13,6 @@ rectangle "Authentication & Onboarding Module" {
   
   usecase "Đăng ký/Đăng nhập bằng Email" as UC_Email
   usecase "Đăng ký/Đăng nhập bằng Google" as UC_Google
-  usecase "Đăng ký/Đăng nhập bằng Apple" as UC_Apple
 }
 
 user --> UC_Lang
@@ -24,12 +22,9 @@ user --> UC_Forgot
 
 UC_Register <.. UC_Email : <<extend>>
 UC_Register <.. UC_Google : <<extend>>
-UC_Register <.. UC_Apple : <<extend>>
 
 UC_Login <.. UC_Email : <<extend>>
 UC_Login <.. UC_Google : <<extend>>
-UC_Login <.. UC_Apple : <<extend>>
 
 UC_Google --> google
-UC_Apple --> apple
 @enduml

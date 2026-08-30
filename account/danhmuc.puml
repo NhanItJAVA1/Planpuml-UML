@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Người dùng" as user
+
+rectangle "Category Management Module" {
+  usecase "Xem Danh sách Danh mục" as UC_List
+  usecase "Lọc theo Loại (Chi / Thu / Vay Nợ)" as UC_FilterType
+  usecase "Tạo Danh mục Mới" as UC_Create
+  usecase "Tạo Danh mục Con (Phân cấp)" as UC_SubCategory
+  usecase "Chỉnh sửa Danh mục" as UC_Edit
+  usecase "Tìm kiếm Nhóm" as UC_Search
+}
+
+user --> UC_List
+user --> UC_Create
+user --> UC_Edit
+
+UC_List <.. UC_FilterType : <<include>>
+UC_List <.. UC_Search : <<extend>>
+UC_Create <.. UC_SubCategory : <<extend>>
+@enduml
